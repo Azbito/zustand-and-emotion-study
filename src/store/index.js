@@ -2,21 +2,39 @@ import create from 'zustand'
 
 const useStore = create(set => ({
   user: {
-    nickname: ''
-    // age: 0,
-    // amountOfBearClicked: 0
+    nickname: '',
+    age: 2,
+    amountOfBearClicked: 0
   },
   updateNickname: newNickname => {
-    set(state => ({
-      user: {
+    set(state => {
+      const updatedUser = {
         ...state.user,
         nickname: newNickname
       }
-    }))
-    localStorage.setItem(
-      'userinfos',
-      JSON.stringify({ user: { nickname: newNickname } })
-    )
+      localStorage.setItem('userinfos', JSON.stringify({ user: updatedUser }))
+      return { user: updatedUser }
+    })
+  },
+  updateAge: newAge => {
+    set(state => {
+      const updatedUser = {
+        ...state.user,
+        age: newAge
+      }
+      localStorage.setItem('userinfos', JSON.stringify({ user: updatedUser }))
+      return { user: updatedUser }
+    })
+  },
+  updateAmountOfBearClicked: newAmount => {
+    set(state => {
+      const updatedUser = {
+        ...state.user,
+        amountOfBearClicked: newAmount
+      }
+      localStorage.setItem('userinfos', JSON.stringify({ user: updatedUser }))
+      return { user: updatedUser }
+    })
   },
   getUserFromLocalStorage: () => {
     const storedUser = localStorage.getItem('userinfos')
